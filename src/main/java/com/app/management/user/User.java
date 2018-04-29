@@ -15,6 +15,7 @@ import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+@Table(name = "my_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
