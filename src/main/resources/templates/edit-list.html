@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css"
+          th:href="@{/css/style.css}">
+    <title>Management system</title>
+</head>
+<body>
+<div id="container">
+    <header th:include="main-menu :: header"></header>
+    <nav th:include="main-menu :: menu"></nav>
+    <article th:switch="${prefix}">
+        <div th:case="'user'">
+            <h3 th:if="${showForm1}">Choose user to edit</h3>
+            <form action="#" th:action="@{/user/group}" th:object="${user}" method="post" th:if="${showForm1}">
+                <select name="selectedValue">
+                    <option th:each="user : ${userList}"
+                            th:value="${user.id}"
+                            th:text="${user.firstName+' '+user.lastName}">User name</option>
+                </select>
+                <p><input type="submit" value="Submit" />
+            </form>
+            <h3 th:if="${showForm2}">Choose user groups</h3>
+            <form action="#" th:action="@{/user/edit-group}" method="post" th:if="${showForm2}">
+                <p><input type="text" hidden th:value="${user.getId()}" name="selectedValue"/></p>
+                <ul>
+                    <li th:each="group : ${userGroups}">
+                        <input type="checkbox" th:name="${group.getId()}" th:value="${group.getName()}" th:checked="${user.participateInGroup(group.getId())}" />
+                        <label th:text="${group.getName()}">Group name</label>
+                    </li>
+                </ul>
+                <p><input type="submit" value="Submit" />
+                <p th:text="${message}"></p>
+            </form>
+        </div>
+        <div th:case="'userGroup'">
+            <h3 th:if="${showForm1}">Choose user group to edit</h3>
+            <form action="#" th:action="@{/userGroup/group}" th:object="${userGroup}" method="post" th:if="${showForm1}">
+                <select name="selectedValue">
+                    <option th:each="userGroup : ${userGroupList}"
+                            th:value="${userGroup.getId()}"
+                            th:text="${userGroup.getName()}">User group</option>
+                </select>
+                <p><input type="submit" value="Submit" />
+            </form>
+            <h3 th:if="${showForm2}">Choose users</h3>
+            <form action="#" th:action="@{/userGroup/edit-user}" method="post" th:if="${showForm2}">
+                <p><input type="text" hidden th:value="${userGroup.getId()}" name="selectedValue"/></p>
+                <ul>
+                    <li th:each="user : ${users}">
+                        <input type="checkbox" th:name="${user.getId()}" th:value="${user.getFirstName()}" th:checked="${userGroup.haveUser(user.getId())}" />
+                        <label th:text="${user.getFirstName()+' '+user.getLastName()}">User name</label>
+                    </li>
+                </ul>
+                <p><input type="submit" value="Submit" />
+                <p th:text="${message}"></p>
+            </form>
+        </div>
+    </article>
+</div>
+</body>
+</html>

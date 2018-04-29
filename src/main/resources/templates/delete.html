@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css"
+          th:href="@{/css/style.css}">
+    <title>Management system</title>
+</head>
+<body>
+<div id="container">
+    <header th:include="main-menu :: header"></header>
+    <nav th:include="main-menu :: menu"></nav>
+    <article th:switch="${prefix}">
+        <form th:case="'user'" action="#" th:action="@{/user/delete}" th:object="${user}" method="post">
+            <h3>Choose user to delete</h3>
+            <select name="selectedValue">
+                <option th:each="user : ${userList}"
+                        th:value="${user.getId()}"
+                        th:text="${user.getFirstName()+' '+user.getLastName()}">User name</option>
+            </select>
+            <p><input type="submit" value="Submit" />
+        </form>
+        <form th:case="'userGroup'" action="#" th:action="@{/userGroup/delete}" th:object="${userGroup}" method="post">
+            <h3>Choose user group to delete</h3>
+            <select name="selectedValue">
+                <option th:each="userGroup : ${userGroupList}"
+                        th:value="${userGroup.getId()}"
+                        th:text="${userGroup.getName()}">User group</option>
+            </select>
+            <p><input type="submit" value="Submit" />
+        </form>
+        <p th:if="${message}" th:text="${message}"></p>
+    </article>
+
+</div>
+</body>
+</html>

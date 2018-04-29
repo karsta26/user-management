@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css"
+          th:href="@{/css/style.css}">
+    <title>Management system</title>
+</head>
+<body>
+<div id="container">
+    <header>
+        <h1>Management system</h1>
+    </header>
+    <nav>
+        <h2><a class="forMenu" th:href="@{'/user'}">User</a></h2>
+        <h2><a class="forMenu" th:href="@{'/userGroup'}">User Groups</a></h2>
+    </nav>
+    <article th:if="${message}">
+        <h2 th:text="${message}"></h2>
+    </article>
+</div>
+</body>
+</html>

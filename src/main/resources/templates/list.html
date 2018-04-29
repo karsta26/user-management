@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css"
+          th:href="@{/css/style.css}">
+    <title>Management system</title>
+</head>
+<body>
+<div id="container">
+    <header th:include="main-menu :: header"></header>
+    <nav th:include="main-menu :: menu"></nav>
+    <article>
+        <table th:switch="${prefix}" id="mainTable">
+            <thead>
+                <tr>
+                    <th th:each="item : ${columnNames}" th:text="${item}"></th>
+                </tr>
+            </thead>
+            <tbody th:case="'user'">
+                <tr th:each="user : ${userList}">
+                    <td th:text="${user.getFirstName()}"></td>
+                    <td th:text="${user.getLastName()}"></td>
+                    <td th:text="${user.getUserName()}"></td>
+                    <td th:text="${user.getPassword()}"></td>
+                    <td th:text="${user.getDateOfBirth()}"></td>
+                    <td>
+                        <p th:if="${user.getGroups().isEmpty()}">None</p>
+                        <ul th:each="group : ${user.getGroups()}" >
+                            <li th:text="${group.getName()}"></li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody th:case="'userGroup'">
+            <tr th:each="userGroup : ${userList}">
+                <td th:text="${userGroup.getName()}"></td>
+                <td>
+                    <p th:if="${userGroup.getUsers().isEmpty()}">None</p>
+                    <ul th:each="user : ${userGroup.getUsers()}" >
+                        <li th:text="${user.getFirstName()}+' '+${user.getLastName()}"></li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </article>
+
+</div>
+</body>
+</html>

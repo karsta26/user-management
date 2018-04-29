@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css"
+          th:href="@{/css/style.css}">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $("#dateOfBirth").datepicker({ dateFormat: 'yy-mm-dd'});
+        } );
+    </script>
+    <title>Management system</title>
+</head>
+<body>
+<div id="container">
+    <header th:include="main-menu :: header"></header>
+    <nav th:include="main-menu :: menu"></nav>
+    <article th:switch="${prefix}">
+        <form th:case="'user'" action="#" th:action="@{/user/add}" th:object="${user}" method="post">
+            <p>User name: <input type="text" th:field="*{userName}" /></p>
+            <p style="color:red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name Error</p>
+            <p>Password: <input type="text" th:field="*{password}" /></p>
+            <p style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</p>
+            <p>First name: <input type="text" th:field="*{firstName}" /></p>
+            <p style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</p>
+            <p>Last name: <input type="text" th:field="*{lastName}" /></p>
+            <p style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</p>
+            <p>Date of birth: <input type="text" th:field="*{dateOfBirth}" /></p>
+            <p style="color:red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Name Error</p>
+            <p><input type="text" hidden th:field="*{id}" /></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+        <form th:case="'userGroup'" action="#" th:action="@{/userGroup/add}" th:object="${userGroup}" method="post">
+            <p>Group name: <input type="text" th:field="*{name}" /></p>
+            <p style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+            <p><input type="text" hidden th:field="*{id}" /></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+        <p th:text="${message}"></p>
+    </article>
+</div>
+</body>
+</html>
