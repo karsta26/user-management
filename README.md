@@ -3,13 +3,13 @@
 Project in Spring Framework
 
 ## Deployment
-App is avaible here: https://user-management-appl.herokuapp.com/
+App is available here: https://user-management-appl.herokuapp.com/
 
 ## Info
 
 - Application was built with: Spring Boot, Spring MVC, Spring Data.
 - Application stores data in PostgreSQL database. 
-- Data is avaible via the REST protocol.
+- Data is available via the REST API.
 - All pages were generated with Thymeleaf template engine.
 
 ## Functionalities
